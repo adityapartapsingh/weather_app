@@ -1,0 +1,26 @@
+import { convertToFahrenheit, getWeatherTypeFromCode } from "../commenUtil";
+
+const dateFormater = new Intl.DateTimeFormat("en-IN", {
+    month:"short",
+    day:"numeric",
+    year:"2-digit" 
+})
+
+const formateDate= (date) => dateFormater.format(date);
+
+const WeatherRow = ({
+    weather: {date,maxTemperature, minTemperature, weatherCode},
+     isCelsius}) => {
+    return (
+        <tr>
+            <td>{formateDate(date)}</td>
+            <td>
+                H:{" "}{isCelsius? `${maxTemperature}°C ` : `${convertToFahrenheit(maxTemperature)} °F`} {" "}
+                - L:{" "}{isCelsius? `${minTemperature}°C ` : `${convertToFahrenheit(minTemperature)} °F`} {" "}
+            </td>
+            <td>{getWeatherTypeFromCode(weatherCode)}</td>
+        </tr>
+    );
+};
+
+export default WeatherRow;
